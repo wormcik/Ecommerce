@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { connectDB } = require('./db');
 const routes = require('./routes');
 require('dotenv').config();
@@ -6,16 +7,16 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware
+// Enable CORS (Required for Vercel)
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/api', routes);
 app.use(express.static('public')); // Public klasörünü sun
 
-// Sunucuyu başlat
-connectDB().then(() => {
+// Connect to MongoDB before starting the server
+(async () => {
+  await connectDB();
   app.listen(port, () => {
-    console.log(`🚀 Sunucu çalışıyor: http://127.0.0.1:${port}`);
+    console.log(`🚀 Server running at: http://127.0.0.1:${port}`);
   });
-}).catch(err => {
-  console.error('❌ MongoDB bağlantı hatası:', err);
-});
+})();

@@ -1,19 +1,23 @@
 import express from 'express';
 import cors from 'cors';
-import { connectDB } from './connect.js';  // Correct import
-import routes from './routes.js';  // Assuming routes.js is in the same folder
+import { connectDB } from './connect.js';  
+import routes from './routes.js';  
 import 'dotenv/config';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Enable CORS (Required for Vercel)
+// CORS Ayarları
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use('/api', routes);
-app.use(express.static('public')); // ✅ Serve public folder
 
-// Connect to MongoDB before starting the server
+// API Rotaları
+app.use('/api', routes);
+
+// Statik Dosya Servisi (Bunu en sona aldık)
+app.use(express.static('public'));
+
+// Sunucuyu Başlat
 (async () => {
   await connectDB();
   app.listen(port, () => {

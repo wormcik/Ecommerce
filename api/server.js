@@ -1,8 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const { connectDB } = require('./api/connect');
-const routes = require('./routes');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import { connectDB } from './connect.js';  // Correct import
+import routes from './routes.js';  // Assuming routes.js is in the same folder
+import 'dotenv/config';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/api', routes);
-app.use(express.static('public')); // Public klasörünü sun
+app.use(express.static('public')); // ✅ Serve public folder
 
 // Connect to MongoDB before starting the server
 (async () => {

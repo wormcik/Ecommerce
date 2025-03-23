@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
+
+dotenv.config();
 
 const uri = process.env.MONGO_URI;
 if (!uri) {
@@ -8,11 +11,9 @@ if (!uri) {
 let client;
 let database;
 
-async function connectDB() {
+export async function connectDB() {
     if (!client) {
         client = new MongoClient(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000,
         });
 
@@ -26,13 +27,4 @@ async function connectDB() {
         }
     }
     return database;
-}
-
-export default async function handler(req, res) {
-    const db = await connectDB();
-    if (db.error) {
-        return res.status(500).json({ error: db.error });
-    }
-
-    res.json({ message: "✅ Connected to MongoDB!" });
 }

@@ -1,13 +1,13 @@
-const express = require('express');
-const { getDB } = require('./api/connect');
-const { ObjectId } = require('mongodb');
+import express from 'express';
+import { connectDB } from './connect.js'; // Ensure correct import
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
 // Kullanıcıları Listele (READ)
 router.get('/users', async (req, res) => {
   try {
-    const db = getDB();
+    const db = await connectDB(); // Ensure database is connected
     const users = await db.collection('users').find().toArray();
     res.json(users);
   } catch (error) {
@@ -19,7 +19,7 @@ router.get('/users', async (req, res) => {
 // Yeni Kullanıcı Ekle (CREATE)
 router.post('/users', async (req, res) => {
   try {
-    const db = getDB();
+    const db = await connectDB();
     const newUser = req.body;
     const result = await db.collection('users').insertOne(newUser);
     res.json({ insertedId: result.insertedId });
@@ -32,12 +32,12 @@ router.post('/users', async (req, res) => {
 // Kullanıcı Güncelle (UPDATE)
 router.put('/users/:id', async (req, res) => {
   try {
-    const db = getDB();
+    const db = await connectDB();
     const { id } = req.params;
     const updatedUser = req.body;
-    
+
     const result = await db.collection('users').updateOne(
-      { _id: new ObjectId(id) }, 
+      { _id: new ObjectId(id) },
       { $set: updatedUser }
     );
 
@@ -55,7 +55,7 @@ router.put('/users/:id', async (req, res) => {
 // Kullanıcı Sil (DELETE)
 router.delete('/users/:id', async (req, res) => {
   try {
-    const db = getDB();
+    const db = await connectDB();
     const { id } = req.params;
 
     const result = await db.collection('users').deleteOne({ _id: new ObjectId(id) });
@@ -71,4 +71,4 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

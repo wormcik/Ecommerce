@@ -1,5 +1,5 @@
 import express from 'express';
-import { connectDB } from './connect.js'; // Ensure correct import
+import { connectDB } from './connect.js'; 
 import { ObjectId } from 'mongodb';
 
 const router = express.Router();

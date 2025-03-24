@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 dotenv.config();
 
-const uri = process.env.MONGO_URI;
+const uri = "mongodb+srv://fatihkesik:worm12term98@cluster0.r0rwd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 if (!uri) {
     throw new Error("⛔ MONGO_URI environment variable is missing!");
 }
@@ -23,7 +23,7 @@ export async function connectDB() {
             database = client.db('ecommerce');
         } catch (error) {
             console.error('❌ MongoDB connection error:', error);
-            return { error: "MongoDB connection failed!" };
+            throw error; // Make sure errors propagate
         }
     }
     return database;

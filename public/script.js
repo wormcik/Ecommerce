@@ -1,11 +1,15 @@
+const API_URL = window.location.origin.includes("localhost")
+    ? "http://localhost:3000/api"
+    : "/api"; // Vercel will handle it
+
 document.addEventListener('DOMContentLoaded', () => {
     const userForm = document.getElementById('userForm');
     const userList = document.getElementById('userList');
 
-    // Kullanıcıları Listele
+    // Fetch users
     async function fetchUsers() {
         userList.innerHTML = '';
-        const res = await fetch('/api/users');
+        const res = await fetch(`${API_URL}/users`);
         const users = await res.json();
 
         users.forEach(user => {
@@ -15,19 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
             userList.appendChild(li);
         });
 
-        // Silme butonlarına event ekleme
+        // Attach delete event
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', deleteUser);
         });
     }
 
-    // Yeni Kullanıcı Ekle
+    // Add new user
     userForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value;
         const age = document.getElementById('age').value;
 
-        const res = await fetch('/api/users', {
+        const res = await fetch(`${API_URL}/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, age })
@@ -39,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Kullanıcı Silme
+    // Delete user
     async function deleteUser(event) {
         const id = event.target.getAttribute('data-id');
-        await fetch(`/api/users/${id}`, { method: 'DELETE' });
+        await fetch(`${API_URL}/users/${id}`, { method: 'DELETE' });
         fetchUsers();
     }
 

@@ -1,12 +1,11 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
-  "type": "module",
   "description": "E-commerce API and frontend",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server.js"
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
   },
   "keywords": ["ecommerce", "node", "express", "mongodb"],
   "author": "Your Name",

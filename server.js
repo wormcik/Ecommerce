@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/api', routes);
 
 // Statik Dosya Servisi (Bunu en sona aldık)
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
 // Sunucuyu Başlat
 (async () => {

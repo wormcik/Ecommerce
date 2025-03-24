@@ -6,8 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server.js",
-    "build": "mkdir -p dist && cp -r server.js dist/ && cp -r config dist/"
+    "dev": "nodemon server.js"
   },
   "keywords": ["ecommerce", "node", "express", "mongodb"],
   "author": "Your Name",

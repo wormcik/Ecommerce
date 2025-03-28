@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MongoDB Kullanıcı Yönetimi</title>
-    <link rel="stylesheet" href="style.css">
+    <title>E-Commerce Store</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>MongoDB Kullanıcı Yönetimi</h1>
+    <header>
+        <h1>E-Commerce Store</h1>
+    </header>
 
-    <form id="userForm">
-        <input type="text" id="name" placeholder="Ad" required>
-        <input type="number" id="age" placeholder="Yaş" required>
-        <button type="submit">Kullanıcı Ekle</button>
-    </form>
+    <div id="menuButtons">
+        <button id="adminLink" style="display: none;">Admin Page</button>
+        <button id="userLink" style="display: none;">User Page</button>
+    </div>
 
-    <h2>Kullanıcı Listesi</h2>
-    <ul id="userList"></ul>
+    <div id="authButtons">
+        <button id="loginButton" style="display: none;">Log In</button>
+        <button id="logoutButton" style="display: none;">Log Out</button>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

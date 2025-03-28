@@ -3,20 +3,20 @@
   "builds": [
     {
       "src": "api/**/*.js",
-      "use": "@vercel/node" 
+      "use": "@vercel/node"
     },
     {
-      "src": "public/**/*", 
+      "src": "public/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/login",  
+      "src": "/api/(.*)",
       "dest": "/api/routes.js"
     },
     {
-      "src": "/(.*)",  
+      "src": "/(.*)",
       "dest": "/public/index.html"
     }
   ]

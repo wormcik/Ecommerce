@@ -184,7 +184,7 @@ router.post('/rate', async (req, res) => {
 
     if (existingReviewIndex === -1) {
       const newReview = {
-        userId: new ObjectId(user_id), // Store the user ID as an ObjectId
+        userId: new ObjectId(user_id), 
         rating,
         review,
         date: new Date()
@@ -194,7 +194,7 @@ router.post('/rate', async (req, res) => {
         { _id: new ObjectId(item_id) },
         {
           $push: { reviews: newReview },
-          $set: { rating: calculateAverageRating([...item.reviews, newReview]) } // Update the rating average
+          $set: { rating: calculateAverageRating([...item.reviews, newReview]) } 
         }
       );
     } else {
@@ -212,7 +212,7 @@ router.post('/rate', async (req, res) => {
         {
           $set: {
             reviews: item.reviews,
-            rating: calculateAverageRating(item.reviews) // Update the rating average
+            rating: calculateAverageRating(item.reviews) 
           }
         }
       );
@@ -230,7 +230,7 @@ function calculateAverageRating(reviews) {
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
     return totalRating / reviews.length;
   }
-  return 0; // Default rating if no reviews exist
+  return 0; 
 }
 
 

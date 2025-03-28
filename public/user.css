@@ -20,7 +20,6 @@ header h1 {
     font-size: 2.5em;
 }
 
-/* Modal Review Section */
 #modalItemReviews {
     margin-top: 20px;
     max-height: 300px;
@@ -37,16 +36,16 @@ header h1 {
     transition: background-color 0.3s;
 }
 
-.review[rating="1"] { background-color: #ff4d4d; }
-.review[rating="2"] { background-color: #ff704d; }
-.review[rating="3"] { background-color: #ff944d; }
-.review[rating="4"] { background-color: #ffb84d; }
-.review[rating="5"] { background-color: #ffdb4d; }
-.review[rating="6"] { background-color: #d4e157; }
-.review[rating="7"] { background-color: #a8e06b; }
-.review[rating="8"] { background-color: #7cd47f; }
-.review[rating="9"] { background-color: #50c993; }
-.review[rating="10"] { background-color: #24beaa; }
+.review[rating="1"] { background-color: #ff0000; } 
+.review[rating="2"] { background-color: #ff3300; }
+.review[rating="3"] { background-color: #ff6600; }
+.review[rating="4"] { background-color: #ff9900; }
+.review[rating="5"] { background-color: #ffcc00; }
+.review[rating="6"] { background-color: #ccff00; }
+.review[rating="7"] { background-color: #99ff00; }
+.review[rating="8"] { background-color: #66ff00; }
+.review[rating="9"] { background-color: #33ff00; }
+.review[rating="10"] { background-color: #00ff00; } 
 
 .review p {
     margin: 5px 0;
@@ -69,8 +68,8 @@ header h1 {
 }
 
 .review.user-review-own {
-    background-color: #e3f2fd; /* Light blue background for user's own review */
-    border-left: 5px solid #3f51b5; /* Blue left border */
+    background-color: #e3f2fd; 
+    border-left: 5px solid #3f51b5; 
 }
 
 #ratingInput,
@@ -82,7 +81,7 @@ header h1 {
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
-    display: block; /* Ensures both input fields are block elements */
+    display: block; 
 }
 
 #ratingInput {
@@ -91,7 +90,7 @@ header h1 {
 
 #reviewInput {
     height: 120px;
-    margin-top: 15px; /* Ensure spacing between rating input and review textarea */
+    margin-top: 15px;
 }
 
 button {
@@ -110,7 +109,6 @@ button:hover {
     background-color: #303f9f;
 }
 
-/* Add a margin between average rating and reviews count */
 p#modalItemRating,
 p#modalItemReviewsCount {
     margin-bottom: 10px;

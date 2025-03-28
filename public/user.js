@@ -105,16 +105,16 @@ function showItemDetails(itemId) {
     let additionalDetails = '';
     switch (item.category) {
         case 'vinyls':
-            additionalDetails = `<p>Age: ${item.age || 'N/A'}</p>`;
+            additionalDetails = `<p>Age: ${item.age || ''}</p>`;
             break;
         case 'furniture':
-            additionalDetails = `<p>Age: ${item.age || 'N/A'}</p><p>Material: ${item.material || 'N/A'}</p>`;
+            additionalDetails = `<p>Age: ${item.age || ''}</p><p>Material: ${item.material || ''}</p>`;
             break;
         case 'watches':
-            additionalDetails = `<p>Battery Life: ${item.batteryLife || 'N/A'}</p>`;
+            additionalDetails = `<p>Battery Life: ${item.batteryLife || ''}</p>`;
             break;
         case 'shoes':
-            additionalDetails = `<p>Size: ${item.size || 'N/A'}</p><p>Material: ${item.material || 'N/A'}</p>`;
+            additionalDetails = `<p>Size: ${item.size || ''}</p><p>Material: ${item.material || ''}</p>`;
             break;
     }
     document.getElementById("modalItemAdditionalDetails").innerHTML = additionalDetails;
@@ -129,7 +129,7 @@ function showItemDetails(itemId) {
         item.reviews.forEach(review => {
             const reviewElement = document.createElement("div");
             reviewElement.classList.add("review");
-            reviewElement.setAttribute("rating", review.rating); // Burada attribütüyü ekliyoruz!
+            reviewElement.setAttribute("rating", review.rating);
             reviewElement.innerHTML = `
                 <p>Rating: ${review.rating}</p>
                 <p>Review: ${review.review}</p>

@@ -88,6 +88,17 @@ header h1 {
     margin-bottom: 15px;
 }
 
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+}
+
+.star.selected {
+    color: gold;
+}
+
+
 #reviewInput {
     height: 120px;
     margin-top: 15px;

@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDB } from './connect.js'; 
 import { ObjectId } from 'mongodb';
+import crypto from 'crypto';
 
 const router = express.Router();
 
@@ -17,7 +18,8 @@ router.post('/items', async (req, res) => {
       age,          
       material,      
       batteryLife,   
-      size           
+      size,
+      author,           
     } = req.body;
 
     if (!name || !category || !description || !price || !seller || !image) {
@@ -40,7 +42,6 @@ router.post('/items', async (req, res) => {
         newItem.age = age || null; 
         break;
       case 'furniture':
-        newItem.age = age || null;  
         newItem.material = material || null;  
         break;
       case 'watches':
@@ -48,7 +49,9 @@ router.post('/items', async (req, res) => {
         break;
       case 'shoes':
         newItem.size = size || null;  
-        newItem.material = material || null;  
+        break;
+      case 'books':
+        newItem.author = author || null;  
         break;
       default:
         break;
@@ -61,7 +64,7 @@ router.post('/items', async (req, res) => {
     
     res.status(201).json({ message: 'Item added successfully', item: insertedItem });
   } catch (error) {
-    console.error('❌ Error in POST /items:', error);
+    console.error('Error in POST /items:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
@@ -70,17 +73,18 @@ router.post('/items', async (req, res) => {
 router.post('/users', async (req, res) => {
   try {
     const { username, password, role } = req.body;
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     const db = await connectDB();
     const newItem = {
       username, 
-      password, 
+      password: hashedPassword, 
       role, 
     };
     const result = await db.collection('users').insertOne(newItem);
     const insertedItem = await db.collection('users').findOne({ _id: result.insertedId });
     res.status(201).json({ message: 'User added successfully', item: insertedItem });
   } catch (error) {
-    console.error('❌ Error in POST /users:', error);
+    console.error('Error in POST /users:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
@@ -91,7 +95,7 @@ router.get('/items', async (req, res) => {
     const items = await db.collection('items').find().toArray();
     res.json(items);
   } catch (error) {
-    console.error('❌ Error in GET /items:', error);
+    console.error('Error in GET /items:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
@@ -102,7 +106,7 @@ router.get('/users', async (req, res) => {
     const users = await db.collection('users').find().toArray();
     res.json(users);
   } catch (error) {
-    console.error('❌ Error in GET /users:', error);
+    console.error('Error in GET /users:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
@@ -146,17 +150,17 @@ router.delete('/users/:_id', async (req, res) => {
 // Login Backend Routes
 router.post('/login', async (req, res) => {
   try {
-      const { username, password } = req.body;
-      const db = await connectDB();
-      const user = await db.collection('users').findOne({ username, password });
-
-      if (!user) {
-          return res.status(401).json({ error: "Kullanıcı adı veya şifre hatalı!" });
-      }
-      res.status(200).json({ message: "Giriş başarılı!", user });
+    const { username, password } = req.body;
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+    const db = await connectDB();
+    const user = await db.collection('users').findOne({ username, password: hashedPassword });
+    if (!user) {
+      return res.status(401).json({ error: "Kullanıcı adı veya şifre hatalı!" });
+    }
+    res.status(200).json({ message: "Giriş başarılı!", user });
   } catch (error) {
-      console.error('❌ Error in POST /login:', error);
-      res.status(500).json({ error: 'Server error' });
+    console.error('Error in POST /login:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

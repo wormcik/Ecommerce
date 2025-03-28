@@ -9,7 +9,7 @@
     "dev": "nodemon api/server.js"
   },
   "keywords": ["ecommerce", "node", "express", "mongodb"],
-  "author": "Your Name",
+  "author": "e2467520",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

@@ -35,6 +35,7 @@
                     <option value="furniture">Antique Furniture</option>
                     <option value="watches">GPS Sport Watches</option>
                     <option value="shoes">Running Shoes</option>
+                    <option value="books">Books</option>
                 </select>
             
                 <label for="description">Description:</label>
@@ -55,22 +56,23 @@
                 </div>
             
                 <div id="furnitureFields" class="dynamic-field" style="display: none;">
-                    <label for="age">Age:</label>
-                    <input type="number" id="age">
                     <label for="material">Material:</label>
                     <input type="text" id="material">
                 </div>
             
                 <div id="watchesFields" class="dynamic-field" style="display: none;">
-                    <label for="batteryLife">Battery Life:</label>
+                    <label for="batteryLife">Battery Life (days):</label>
                     <input type="text" id="batteryLife">
                 </div>
             
                 <div id="shoesFields" class="dynamic-field" style="display: none;">
                     <label for="size">Size:</label>
                     <input type="text" id="size">
-                    <label for="material">Material:</label>
-                    <input type="text" id="material">
+                </div>
+
+                <div id="booksFields" class="dynamic-field" style="display: none;">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author">
                 </div>
             
                 <button type="submit">Add Item</button>
@@ -85,6 +87,7 @@
                 <button class="tabItem-button" onclick="showTabItem('furniture')">Antique Furniture</button>
                 <button class="tabItem-button" onclick="showTabItem('watches')">GPS Sport Watches</button>
                 <button class="tabItem-button" onclick="showTabItem('shoes')">Running Shoes</button>
+                <button class="tabItem-button" onclick="showTabItem('books')">Books</button>
             </div>
             
             <div class="tabItem-content" id="all" style="display: block;">
@@ -110,6 +113,11 @@
             <div class="tabItem-content" id="shoes" style="display: none;">
                 <h3>Running Shoes</h3>
                 <ul id="shoesList"></ul>
+            </div>
+
+            <div class="tabItem-content" id="books" style="display: none;">
+                <h3>Books</h3>
+                <ul id="booksList"></ul>
             </div>
         </div>
 

@@ -44,6 +44,9 @@ function updateFormFields() {
         case 'shoes':
             document.getElementById('shoesFields').style.display = 'block';
             break;
+        case 'books':
+            document.getElementById('booksFields').style.display = 'block';
+            break;
         default:
             break;
     }
@@ -126,13 +129,16 @@ function filterItems(category) {
                 additionalDetails = `<p>Age: ${item.age || ''}</p>`;
                 break;
             case 'furniture':
-                additionalDetails = `<p>Age: ${item.age || ''}</p><p>Material: ${item.material || ''}</p>`;
+                additionalDetails = `<p>Material: ${item.material || ''}</p>`;
                 break;
             case 'watches':
-                additionalDetails = `<p>Battery Life: ${item.batteryLife || ''}</p>`;
+                additionalDetails = `<p>Battery Life (days): ${item.batteryLife || ''}</p>`;
                 break;
             case 'shoes':
-                additionalDetails = `<p>Size: ${item.size || ''}</p><p>Material: ${item.material || ''}</p>`;
+                additionalDetails = `<p>Size: ${item.size || ''}</p>`;
+                break;
+            case 'books':
+                additionalDetails = `<p>Author: ${item.author || ''}</p>`;
                 break;
         }
 
@@ -143,8 +149,23 @@ function filterItems(category) {
             <p>Seller: ${item.seller}</p>
             <img src="${item.image}" alt="${item.name}" width="100">
             ${additionalDetails}
-            <p>Rating: ${item.rating || 'Not rated yet'}</p>
+            <p>Rating: ${item.rating ? `⭐ ${item.rating}/10` : 'Not rated yet'}</p>
             <p>Reviews: ${item.reviews ? item.reviews.length : 0} reviews</p>
+            <ul>
+            ${item.reviews
+                ? item.reviews
+                    .map(
+                    (review) => `
+                    <li>
+                    <strong>User:</strong> ${review.userId} <br>
+                    <strong>Rating:</strong> ⭐ ${review.rating}/10 <br>
+                    <strong>Review:</strong> ${review.review} <br>
+                    <strong>Date:</strong> ${new Date(review.date).toLocaleString()}
+                    </li>`
+                    )
+                    .join('')
+                : '<li>No reviews yet.</li>'}
+            </ul>
             <button class="remove" onclick="removeItem('${item._id}')">Remove Item</button>
         `;
 
@@ -178,7 +199,7 @@ async function fetchUsers() {
         li.innerHTML = `
             <h3>${item.username}</h3>
             <p>${item.role}</p>
-            <button class="remove" onclick="removeItem('${item._id}')">Remove User</button>
+            <button class="remove" onclick="removeUser('${item._id}')">Remove User</button>
         `;
         userList.appendChild(li);
     });
@@ -208,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let material = null;
             let batteryLife = null;
             let size = null;
+            let author = null;
     
             if (category === 'vinyls' || category === 'furniture') {
                 age = parseInt(document.getElementById('age').value);
@@ -215,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
             if (category === 'furniture' ) {
                 material = document.getElementById('material').value;
-                age = parseInt(document.getElementById('age').value);
             }
     
             if (category === 'watches') {
@@ -224,9 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
             if (category === 'shoes') {
                 size = parseInt(document.getElementById('size').value);
-                material = document.getElementById('material').value;
             }
-    
+
+            if (category === 'books') {
+                author = document.getElementById('author').value;
+            }
+
             const newItem = { 
                 name, 
                 category, 
@@ -237,6 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 age,
                 material,
                 batteryLife,
+                author,
                 size
             };
     

@@ -20,6 +20,7 @@
         <button class="category-button" onclick="showTabItem('furniture')">Furniture</button>
         <button class="category-button" onclick="showTabItem('watches')">Watches</button>
         <button class="category-button" onclick="showTabItem('shoes')">Shoes</button>
+        <button class="category-button" onclick="showTabItem('books')">Books</button>
     </div>
 
     <div id="all" class="tabItem-content"></div>
@@ -27,6 +28,7 @@
     <div id="furniture" class="tabItem-content" style="display:none;"></div>
     <div id="watches" class="tabItem-content" style="display:none;"></div>
     <div id="shoes" class="tabItem-content" style="display:none;"></div>
+    <div id="books" class="tabItem-content" style="display:none;"></div>
 
     <div id="items-container" class="items-grid"></div>
 
@@ -39,16 +41,21 @@
             <p id="modalItemSeller"></p>
             <img id="modalItemImage" width="500" height="auto" alt="Item Image" style="max-width: 100%; height: auto;">
             <div id="modalItemAdditionalDetails"></div>
+            <p>Average Rating: 
+                <span id="modalItemRating"></span> / 10 
+                <span id="modalItemRatingStars"></span>
+            </p>
             
-            <p>Avarage Rating: <span id="modalItemRating"></span></p>
             <p>Reviews: <span id="modalItemReviewsCount"></span></p>
     
             <div id="modalItemReviews">
             </div>
     
             <label for="ratingInput">Your Rating</label>
-            <input type="number" id="ratingInput" min="1" max="10" placeholder="1-10">
     
+            <div id="starRatingContainer"></div>
+            <input type="hidden" id="ratingInput">
+
             <label for="reviewInput">Your Review</label>
             <textarea id="reviewInput" placeholder="Write your review here..."></textarea>
     

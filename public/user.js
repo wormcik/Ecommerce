@@ -65,13 +65,16 @@ function filterItems(category) {
                 additionalDetails = `<p>Age: ${item.age || ''}</p>`;
                 break;
             case 'furniture':
-                additionalDetails = `<p>Age: ${item.age || ''}</p><p>Material: ${item.material || ''}</p>`;
+                additionalDetails = `<p>Material: ${item.material || ''}</p>`;
                 break;
             case 'watches':
-                additionalDetails = `<p>Battery Life: ${item.batteryLife || ''}</p>`;
+                additionalDetails = `<p>Battery Life (days): ${item.batteryLife || ''}</p>`;
                 break;
             case 'shoes':
-                additionalDetails = `<p>Size: ${item.size || ''}</p><p>Material: ${item.material || ''}</p>`;
+                additionalDetails = `<p>Size: ${item.size || ''}</p>`;
+                break;
+            case 'books':
+                additionalDetails = `<p>Author: ${item.author || ''}</p>`;
                 break;
         }
 
@@ -93,7 +96,7 @@ function filterItems(category) {
 function showItemDetails(itemId) {
     const item = allItems.find(i => i._id === itemId);
     if (!item) return;
-
+    
     currentItem = item;
 
     document.getElementById("modalItemName").textContent = item.name;
@@ -108,18 +111,23 @@ function showItemDetails(itemId) {
             additionalDetails = `<p>Age: ${item.age || ''}</p>`;
             break;
         case 'furniture':
-            additionalDetails = `<p>Age: ${item.age || ''}</p><p>Material: ${item.material || ''}</p>`;
+            additionalDetails = `<p>Material: ${item.material || ''}</p>`;
             break;
         case 'watches':
-            additionalDetails = `<p>Battery Life: ${item.batteryLife || ''}</p>`;
+            additionalDetails = `<p>Battery Life (days): ${item.batteryLife || ''}</p>`;
             break;
         case 'shoes':
-            additionalDetails = `<p>Size: ${item.size || ''}</p><p>Material: ${item.material || ''}</p>`;
+            additionalDetails = `<p>Size: ${item.size || ''}</p>`;
+            break;
+        case 'books':
+            additionalDetails = `<p>Author: ${item.author || ''}</p>`;
             break;
     }
     document.getElementById("modalItemAdditionalDetails").innerHTML = additionalDetails;
 
     document.getElementById("modalItemRating").textContent = item.rating || 'Not rated yet';
+    const avgRating = item.rating || 0;
+    document.getElementById("modalItemRatingStars").innerHTML = getStarRating(avgRating);
     document.getElementById("modalItemReviewsCount").textContent = item.reviews ? item.reviews.length : 0;
 
     const reviewsContainer = document.getElementById("modalItemReviews");
@@ -147,6 +155,7 @@ function showItemDetails(itemId) {
 
     document.getElementById("ratingInput").value = existingReview ? existingReview.rating : '';
     document.getElementById("reviewInput").value = existingReview ? existingReview.review : '';
+    setRating(existingReview ? existingReview.rating : 0);
 
     document.getElementById("itemModal").style.display = "block";
 }
@@ -155,6 +164,37 @@ function showItemDetails(itemId) {
 function closeModal() {
     document.getElementById("itemModal").style.display = "none";
 }
+
+function createStarRating() {
+    const starContainer = document.getElementById("starRatingContainer");
+    starContainer.innerHTML = "";
+
+    for (let i = 1; i <= 10; i++) {
+        let star = document.createElement("span");
+        star.innerHTML = "\u2605";
+        star.classList.add("star");
+        star.dataset.value = i;
+        star.addEventListener("click", function() {
+            setRating(i);
+        });
+        starContainer.appendChild(star);
+    }
+}
+
+function setRating(value) {
+    document.getElementById("ratingInput").value = value;
+    const stars = document.querySelectorAll(".star");
+    stars.forEach(star => {
+        if (parseInt(star.dataset.value) <= value) {
+            star.classList.add("selected");
+        } else {
+            star.classList.remove("selected");
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", createStarRating);
+
 
 async function submitRatingAndReview() {
     const rating = parseInt(document.getElementById("ratingInput").value);
@@ -191,4 +231,19 @@ async function submitRatingAndReview() {
         console.error("Error submitting rating and review:", error);
         alert("Failed to submit rating and review. Please try again later.");
     }
+}
+
+function getStarRating(rating) {
+    const fullStar = "★"; 
+    const emptyStar = "☆"; 
+    const maxStars = 10; 
+
+    let starRating = "";
+    const filledStars = Math.round(rating); 
+
+    for (let i = 1; i <= maxStars; i++) {
+        starRating += i <= filledStars ? fullStar : emptyStar;
+    }
+
+    return starRating;
 }

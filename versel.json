@@ -2,8 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/routes.js",  
-      "use": "@vercel/node"   
+      "src": "api/**/*.js",
+      "use": "@vercel/node" 
     },
     {
       "src": "public/**/*", 
@@ -12,7 +12,7 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",  
+      "src": "/api/login",  
       "dest": "/api/routes.js"
     },
     {

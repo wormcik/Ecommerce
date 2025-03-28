@@ -8,7 +8,12 @@
     "start": "node api/server.js",
     "dev": "nodemon api/server.js"
   },
-  "keywords": ["ecommerce", "node", "express", "mongodb"],
+  "keywords": [
+    "ecommerce",
+    "node",
+    "express",
+    "mongodb"
+  ],
   "author": "e2467520",
   "license": "ISC",
   "dependencies": {

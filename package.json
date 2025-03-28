@@ -4,9 +4,6 @@
   "type": "module",
   "description": "E-commerce API and frontend",
   "main": "api/server.js",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "start": "node api/server.js",
     "dev": "nodemon api/server.js"
